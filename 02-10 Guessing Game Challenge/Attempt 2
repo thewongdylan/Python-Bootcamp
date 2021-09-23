@@ -1,37 +1,36 @@
 from random import randint
 
 x = randint(1,101)
-print(x)
+print(x) #to be removed
 
-y = int(input('Enter your guess here: '))
+y = None
 
 a=0
 while y != x:
+    y = int(input('Enter your guess here: '))
     a+=1
     if y<1 or y>100:
         print ('OUT OF BOUNDS')
-        y = int(input('Enter your next guess here: '))
-    elif a==1:
-        if (x-10)<y<(x+10):
-            print('WARM!')
-            z = y
-            y = int(input('Enter your next guess here: '))
-        elif y<(x-10) or y>(x+10):
-            print('COLD!')
-            z = y
-            y = int(input('Enter your next guess here: '))
-    elif a>1:
-        if (abs(z-x))>(abs(y-x)):
+    elif (x-10)<y<(x+10):
+        if a==1:
+            print ('WARM!')
+        elif a>1 and (abs(z-x))>(abs(y-x)):
             print ('WARMER!')
-            z = y
-            y = int(input('Enter your next guess here: '))
         elif a>1 and (abs(z-x))<(abs(y-x)):
             print ('COLDER!')
-            z = y
-            y = int(input('Enter your next guess here: '))
         elif a>1 and (abs(z-x))==(abs(y-x)):
-            print ('NEUTRAL!')
-            z = y
-            y = int(input('Enter your next guess here: '))
+            print ('SAME!')
+        z = y
+    else:
+        if a==1:
+            print ('COLD!')
+        elif a>1 and (abs(z-x))>(abs(y-x)):
+            print ('WARMER!')
+        elif a>1 and (abs(z-x))<(abs(y-x)):
+            print ('COLDER!')
+        elif a>1 and (abs(z-x))==(abs(y-x)):
+            print ('SAME!')
+        z = y
 
-print('Congrats! You took {} guess(es)!'.format(a+1))
+
+print('Congrats! You took {} guess(es)!'.format(a))
