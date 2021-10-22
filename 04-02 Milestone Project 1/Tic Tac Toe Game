@@ -57,12 +57,22 @@ def place_marker(board, marker, position):
 def full_board_check(board):
     return ' ' not in board
 
+def check_numeric(position):
+    while not position.isnumeric():
+        position = input('That is not a valid position. Please select another position. (1-9) ')
+    if position.isnumeric():
+        position = int(position)
+    return position
+
 def choose_position(board):
-    position = int(input('Please select the position you wish to place your marker. (1-9) '))
+    position = input('Please select the position you wish to place your marker. (1-9) ')
+    position = check_numeric(position)
     while position not in range(1,10):
-        position = int(input('That is not a valid position. Please select another position. (1-9) '))
+        position = input('That is not a valid position. Please select another position. (1-9) ')
+        position = check_numeric(position)
     while not space_check(board, position):
-        position = int(input('That position is already taken. Please select another position. (1-9) '))
+        position = input('That position is already taken. Please select another position. (1-9) ')
+        position = check_numeric(position)
     return position
 
 def replay():
@@ -81,7 +91,7 @@ def switch_turn():
     global Player2
     Player1 = not Player1
     Player2 = not Player2
-
+    
 #import and set up empty board, valid markers
 from IPython.display import clear_output
 from random import randint
@@ -147,9 +157,11 @@ while game_on:
     if Player1 == False and Player2 == False:
         if win_check(game_board, marker):
             if marker == marker1:
+                clear_output()
                 display_board(game_board)
                 print('Congratulations Player 1! You won!')
             elif marker == marker2:
+                clear_output()
                 display_board(game_board)
                 print('Congratulations Player 2! You won!')
         #if full_board_check() == True and win_check() == False, print('Tie')
